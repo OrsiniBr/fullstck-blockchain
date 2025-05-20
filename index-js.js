@@ -3,17 +3,18 @@ import {
   custom,
   formatEther,
   createPublicClient,
-  publicClient,
+  
   parseEther,
   defineChain,
 } from "https://esm.sh/viem";
-import { coffeeabi, contractAddress } from "./constants-js.js";
+import { abi, contractAddress } from "./constants-js.js";
 
 const connectButton = document.getElementById("connectButton");
 const balanceButton = document.getElementById("balanceButton");
 const fundButton = document.getElementById("fundButton");
 const ethAmountInput = document.getElementById("ethAmount");
 const withdrawButton = document.getElementById("withdrawButton");
+const getAmountButton = document.getElementById("getAmountButton");
 
 let walletClient;
 let publicClient;
@@ -46,7 +47,7 @@ async function fund() {
 
     const { request } = await publicClient.simulateContract({
       address: contractAddress,
-      abi: coffeeabi,
+      abi: abi,
       functionName: "fund",
       account: connectedAccount,
       chain: currentChain,
@@ -75,7 +76,7 @@ async function withdraw() {
 
     const { request } = await publicClient.simulateContract({
       address: contractAddress,
-      abi: coffeeabi,
+      abi: abi,
       functionName: "withdraw",
       account: connectedAccount,
       chain: currentChain,
@@ -117,7 +118,11 @@ async function getBalance() {
   }
 }
 
+
+
+
 connectButton.onclick = connect;
 fundButton.onclick = fund;
 balanceButton.onclick = getBalance
 withdrawButton.onclick = withdraw;
+// getAmountButton.onclick = getAddressToAmountFunded;
